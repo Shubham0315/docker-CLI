@@ -49,8 +49,7 @@ Command :- docker run hello-world:linux
 Explaination :- This command created container from "hello-world" image automatically, started it and attached logs to its terminal
 <img width="755" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/ea7745ba-6247-4ad5-9301-fba240c86495">
 
-docker run = docker container create + docker container start + docker container attach
-
+**docker run = docker container create + docker container start + docker container attach**
 
 
 
