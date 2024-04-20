@@ -1,12 +1,14 @@
-FROM :- Tells docker which existing docker image to get your docker image from. This can be any image either from local or internet
+**Dockerfile Contents**
 
-USER :- Tells docker which user to use for any dockerfile commands underneath it (By default docker uses "root" user)
+- FROM :- Tells docker which existing docker image to get your docker image from. This can be any image either from local or internet
 
-COPY :- Copies files from directory provided to the docker build command to the container image. The directory provided to docker build is called the "Context". The context is usually your working directory
+- USER :- Tells docker which user to use for any dockerfile commands underneath it (By default docker uses "root" user)
 
-RUN :- Run statements are commands that customize our image. To install software or configuration files needed for your application.
+- COPY :- Copies files from directory provided to the docker build command to the container image. The directory provided to docker build is called the "Context". The context is usually your working directory
 
-ENTRYPOINT :- Tells docker what command containers created from this image should run
+- RUN :- Run statements are commands that customize our image. To install software or configuration files needed for your application.
+
+- ENTRYPOINT :- Tells docker what command containers created from this image should run
 
 ---------------------------------------------------------------------------------------------------------------------------
 Use dockerfile to Build Image and Run Container
