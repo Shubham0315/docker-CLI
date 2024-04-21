@@ -1,0 +1,18 @@
+----------------------------------------------------------------------------------------------------------------------
+Saving Data from Containers
+----------------------------------------------------------------------------------------------------------------------
+Containers are meant to be disposable. When they are deleted, all data is deleted.
+
+Use "docker run --rm" to create and immediately remove a simple ubuntu container. 
+Use "--entrypoint sh" to tell docker that we want to run a shell command.
+Provide name of the image ubuntu.
+At the end of command, send text "Hello there" to a file called /tmp/file with the echo command and print it with cat command
+-c "echo 'Hello there.' > /tmp/file && cat /tmp/file"
+
+So final command will be
+_**Command :- docker run --rm --entrypoint sh ubuntu -c "echo 'Hello there.' > /tmp/file && cat /tmp/file"**_
+
+But when we try to print this file on our machine, we get error
+Everything created within container, stays within container. Once container gets deleted, data also gets deleted. This is very inconvenient for containers that need to save stuff after exiting.
+
+  
