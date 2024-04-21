@@ -51,6 +51,52 @@ Explaination :- This command created container from "hello-world" image automati
 
 **docker run = docker container create + docker container start + docker container attach**
 
+----------------------------------------------------------------------------------------------------------------------
+Stop and Remove Containers
+----------------------------------------------------------------------------------------------------------------------
+
+By default docker doesn't stop or remove containers for us. Having many containers running on system can burn battery and slowing other containers down. For this we've to remove and stop containers.
+
+1. To stop containers
+Command :- docker stop Container_ID
+<img width="770" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/d49eb8d4-abbb-47f7-87e1-fe631753e644">
+
+2. To forcefully stop container which might take upto 10 sec to stop by docker stop
+Command :- docker stop -t 0 Container_ID
+
+3. To remove containers
+Command :- docker rm Container_ID
+<img width="773" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/b81b1c4c-bd13-49bb-a584-40acfd4403c0">
+
+docker rm will not stop containers that are running. We can do that using -f option along with rm
+
+4. To remove entire list of containers
+Use the linux command "xargs" to take output from "docker ps"
+xargs --> command to run for each line of output
+
+To only get IDs of containers
+Command :- docker ps -aq  (-q to list IDs)
+<img width="769" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/8fe81bab-dc86-4010-9650-ee061d12bb58">
+
+To remove all containers in one go (remove all idle containers)
+Command :- docker ps -aq | xargs docker rm
+<img width="610" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/895a5182-a509-4656-a7fd-dc55993e7bfe">
+
+----------------------------------------------------------------------------------------------------------------------
+Remove Images
+----------------------------------------------------------------------------------------------------------------------
+To list images
+Command :- docker images
+<img width="776" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/cb32aa15-2895-4a6a-8408-23832d8b3965">
+
+To remove images (First stop and remove container to which image is tagged)
+Command :- docker rmi Image_Name
+
+
+
+
+
+
 
 
 
