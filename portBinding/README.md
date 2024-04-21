@@ -29,7 +29,9 @@ Outside of the container (machine) : Inside of the container
 Command :- docker run -d --name my-web-server my-web-server
 <img width="766" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/db6513e7-7740-4a1b-8016-c6d323401412">
 
-Now go to localhost:5001 which is localhost on our machine. The link will be accessible
+Now go to localhost:5001 which is localhost on our machine. The link will be accessible. Below is the output:-
+<img width="753" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/343ee80f-957b-403a-b93f-2d5ef72e2822">
+
 
 
 
