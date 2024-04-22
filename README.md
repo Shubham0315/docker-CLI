@@ -45,6 +45,7 @@ Creating Docker Container - The Short Way
 ----------------------------------------------------------------------------------------------------------------------
 
 _**Command :- docker run hello-world:linux**_
+
 Explaination :- This command created container from "hello-world" image automatically, started it and attached logs to its terminal
 <img width="755" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/ea7745ba-6247-4ad5-9301-fba240c86495">
 
