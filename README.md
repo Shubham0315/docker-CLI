@@ -91,6 +91,63 @@ _**Command :- docker images**_
 To remove images (First stop and remove container to which image is tagged)
 _**Command :- docker rmi Image_Name**_
 
+----------------------------------------------------------------------------------------------------------------------
+Prune Command
+----------------------------------------------------------------------------------------------------------------------
+This command smartly removes useless data that's buring a hole in our disc
+
+_**Command :- docker system prune**_
+We get message of reclaimed space after running the command
+
+<img width="780" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/c7a98a77-24e4-482d-a631-89bba2c5e789">
+<img width="787" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/35e8190b-69d8-42af-a982-b8aab555ce43">
+
+----------------------------------------------------------------------------------------------------------------------
+Debugging of Containers Slowness
+----------------------------------------------------------------------------------------------------------------------
+- Our container might run slowly than we expected
+  We can use 3 command to analyse the same
+
+  1. Docker stats
+  - This gives us snap of our container's performance as its running.
+  - Launch a container of name alpine. As we want our container to run indefinitely, set its entrypoint to sleep.
+    After image name provide agrument as "infinity" that puts container to sleep forever
+  
+  _**Command :- docker run --name=alpine --entrypoint=sleep -d alpine infinity**_
+  <img width="777" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/c01e1d74-7611-4f21-b8c9-1733b52e50f3">
+
+  From above image, we can say that container is sleeping and is running.
+  To check stats of it while sleeping
+
+_**Command :- docker stats ID**_
+<img width="602" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/5892b942-a734-4477-a0cb-20e021dbc1f1">
+
+To manipulate with container, open another terminal and go inside its interactive mode (docker exec -it ID bash). To enter into shell of container
+(-t --> For local terminal to communicate with container terminal)
+<img width="780" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/a4f5dd30-9bc4-4143-9e21-f956f8e2a627">
+
+If we run any program inside shell, our CPU usage increases
+<img width="602" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/34d113da-5440-404b-94d1-2a2463d0f473">
+
+When we terminate the program in there, our CPU usage comes down to normal
+
+2. Docker top
+- Shows whats running inside of container without having to exec into it.
+- If we run same exec command multiple times, and run docker top, we can see that we have ton of sleeps
+
+_**Command :- docker top Container_ID**_
+<img width="776" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/dbec52a7-4644-4d96-9966-0cd02a0cf9ea">
+
+3. Docker inspect
+- Used to show advanced information about container in JSON format.
+
+_**Command :- docker inspect Container_Name/ID**_
+
+- We can check directories mounted, container restarting or not, 
+  
+
+  
+
 
 
 
