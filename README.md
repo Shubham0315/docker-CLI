@@ -120,6 +120,7 @@ Debugging of Containers Slowness
   To check stats of it while sleeping
 
 _**Command :- docker stats ID**_
+
 <img width="602" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/5892b942-a734-4477-a0cb-20e021dbc1f1">
 
 To manipulate with container, open another terminal and go inside its interactive mode (docker exec -it ID bash). To enter into shell of container
