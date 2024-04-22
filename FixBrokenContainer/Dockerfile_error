@@ -1,0 +1,7 @@
+#Correct image name is "xenial" not "xeniall"
+FROM ubuntu:xeniall
+
+COPY /app.sh /
+RUN chmod +x /app.sh
+
+ENTRYPOINT [ "/app.sh" ]
