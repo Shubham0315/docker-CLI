@@ -18,7 +18,8 @@
     e.g:- If we build and run container. If we again try to execute same, it wont run as container is already in running state.
   - Docker compose allow us to specify desired end result and will execute any steps to reach teh result automatically. Using compose, we can re-run the command again (above e.g)
  
-    * Configuration as a Code Advantages
+  **Configuration as a Code Advantages**
+  
     - Configuration files can be checked into version control. We can revert to previous versions if the configuration ever breaks.
     - Its also self documenting (No need to remember commands)
     - Eay to manage multiple docker environments each with different configurations (Dev and QA). Each to have own configuration files
