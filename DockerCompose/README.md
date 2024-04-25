@@ -56,6 +56,9 @@
 - This will build docker images for each of the defined services, create containers and start them
   If we've large software system with many services and we're working on only one piece of it, we may not want to start up every single service. We can pass the service name to docker compose command to start only that service.
 
+  <img width="785" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/2611987c-05a4-430c-8eb4-086ac9012d74">
+
+
 2. To stop the services running :- docker-compose down
 - This will delete all the running containers and will remove any artifacts created as part of docker-compose up.
   In local development, docker-compose stop is useful for simply saving battery life and free up memory. Whereas docker-compose down is more aggressive and helpful if we've made changes to the running application
@@ -71,10 +74,36 @@ Build Arguments
 - Build arguments are useful for things like specifying a version for certain build tool or cloud platform configuration.
   If docker container is hosted in multiple regions, it becomes easy to switch between regions while using the same singular dockerfile.
 
-  <img width="778" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/48880747-1ed0-47f4-8e1c-b9c79d3ef7e4">
+1. To specify build argument in docker-compose.yaml file, we have to change the buld path syntax from shorthand to more explicit syntax.
+  The docker build path value which was simply dot, is now moved to its own attribute context which is nested under the build parameter.
+
+  <img width="233" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/46ebf670-b3dd-4f26-a09c-7e1011d8d960">
+
+2. At the same nesting level as context, add another attribute "args". Under it add an number of named build arguments in list format.
+   Syntax :- argument_name=argument_value
+
+   <img width="202" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/29556f60-68a2-4bbb-8a5f-428b4ba4a809">
 
 - The most common use of environment variable is for specifying things like current runtime environment such as dev/test. This can be used for logging or enabling a feature flag.
+
+3. To pass environment variable to docker container using compose under the named service add an attribute environment. Then in list format include any environment variable that should be accessible to that container using same syntax as build arguments.
+
+  <img width="275" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/2e6311a0-d109-4200-99d7-a4b1b8561472">
+
+
+  We got below error while running docker compose up for the services earlier
+  
+  <img width="758" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/eff940a6-d640-4568-a708-b231851046c2">
+
+This is due to mySql docker image relies on several environment variables for specifying root password, user credentials and a database. In above image, we can see we have missed environment variables so error occurs.
+We can replace environment with env_file and below taht include paths to any environment files you want the docker container to have access to.
+
+<img width="385" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/32491316-e5b0-4a6f-90b9-941fdd86ff24">
+
+We can create env_vars file which will provide environment variables required for mySql container to run.
 - Instead of naming each environment variable individually, compose also supports passing in file paths to an environment configuration
+
+  
 
 
        
