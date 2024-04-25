@@ -106,8 +106,131 @@ We can create env_vars file which will provide environment variables required fo
   <img width="781" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/23f7e5e3-c889-4c6c-aa2d-4848904f9890">
 
   
+--------------------
+Mounting Volumes
+------------------
+- Volumes are docker construct used for persistent storage, so that even when container stops running important data doesnt get deleted.
+- Mounting volume to docker service, we need to specify target with source and mode as well.
+- Target refers to directory path inside running container whre this volume data will live.
+- In docker-compose.yaml, add volume object to service that needs to access the volume. Under the object, we'll specify the target path
+- It is also important to specify source which is where the volume data lives on host machine outside of any containers.
+  If source is ot specified, compose will create source volume automatically  (source:target)
+  This would mount data in host of mysql folder onto the data directory of running mysql container.
+- We may want to specify access modes. Default is read-write (RW) but if app only need to read persistent data and not to update it, set access mode to read-only(ro)
+  So our complete syntax becomes :- source:target:mode
+
+  <img width="535" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/555b1ef6-3836-47d7-aab3-9de7e894f431">
+
+
+ --------------------
+Named Volumes
+------------------      
+- If we want compose to manage volume lifecycle along with container lifecycle, it is recommended to use named volumes
+- Previously we mounted nameless volume to /var/lib/mysql. This would persist any database data written inside the container and store i on host machine.
+- This would create new random volume each time docker compose up runs. To name volume, below services object define new object called volumes with a named object nested underneath it.
+- Now instead of specifying source path when mounting service volume, specify volume name.
+
+<img width="776" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/f480c93a-46cf-4f65-8930-0085a537b20b">
+
+- When running up or restart, compose will auto copy volume data from old to new containers and ensure no data is lost.
+- If we run docker compose down --volumes, it will auto delete named volumes so memory is released.
+ 
+--------------------
+Exposing Ports
+------------------ 
+- Using docker, entire app can be fully encapsulated inside single container. But by default, things outside of container cannot access or communicate with anything running inside of container.
+- Containerized services usually need to communicate with each other or with outside world and developers typically want to access containerized app via local host. We can do that exposing port that maps from host machine to container.
+- Without docker compose, we have to add port mappings when we run each container. Difficult to remember port for each dockerized service. Also same port cannot be exposed twice on same host machine. This is where compose comes in.
+- Using compose we can document every port mapping for every service.
+- Our kinetico app, where storefront and scheduler both run on port 80 which is default port for many apps receiving web traffic. Mapping both apps on port 80 on same host will cause port collision.
+  To avoid collision , map port 81 on host to 80 on scheduler
+  Internally scheduler is still receiving traffic on port 80 inside of container, but to access app from host machine we can use 81.
+- Port mappings use syntax :- host port no :container port no
+- In yaml file, below storefront add port 80 of host to map to 80 of container. For scheduler, use 81 on host to 80 on container.
+
+  <img width="779" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/c786e527-12be-445a-aa4d-78bc6cb6d0a0">
+
+- Docker service may be performing different functions over multiple ports.
+- Exposing ports is one of the most common use cases for docker compose given that basically every docker container will need some way to communicate with outside world.
+
+---------------------
+Enforcing Startup Order
+------------------ 
+- Many common app architectures have service dependencies
+- To run app container we need to make sure db container is running (storefront)
+- In yaml file, we can add "depends-on" object. Then we can provide service names in list format.
+
+  <img width="354" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/a5333222-41a5-4596-8873-f44118a291af">
+
+- Now compose up will start services in dependency order. Start up db first, then start storefront.
+  Down will stop storefront first and then db.
+- Services can have any number of dependencies and many services can share single dependency.
+  Docker-compose up storefront --> will start all of its dependencies automatically.
+
+  <img width="778" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/8a0ea9f4-8821-4ed9-8459-fe1fc0df9bdb">
+
+- Modern versions of compose dont guarantee that dependent containers are running or are healthy. They only state started. So uptime is not guaranteed.
+  Thats because in distributed system,it is not possible to know depndent service, db or app is always up and running.No service will have 100% uptime.
+- In rare and specific use case that a dependent service must be running before a container start, there are 3rd party tools. They will wrap container's initialization command so that container will not start if dependency is unhealthy.
+  This is called tight copuling and is not recommended in Distributed Systems.
+
+---------------------
+Name Subnets of Services
+------------------ 
+- Docker compose provides utility to start named subsets of services inside single docker-compose.yaml file
+- In larger organisation, its fairly common to see clusters of docker containers that are frequently run together but dont necessarily explicitly depend on each other.
+- Our kinetico app, one group is responsible for storefront and other for scheduling.
+  To save processing power, storefront dev group doesnt want scheduler containers running on their local machines and scheduling group doesnt want storefront containers running
+  Here we wont want separate docker compose files as containers sometimes need to run together.
+  This is where service profiles come in.
+- Service profile allows you to put docker service in one or more categories
+
+- In yaml file, under storefront service, use profiles keyword and then list one or more profile names. Do same for scheduler.
+
+  <img width="485" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/bcd01b9d-9ef9-4006-8c33-4750dbf80922">
+
+  Now both of them depend on database, database need to be included in both profiles. If we dont assign profiles to DB service, it will be auto included in default profile. That means it will run all the time with every service profile.
+  We can also add multiple profiles for database.
+- Once default profile is specified in configuration, docker compose commands will only apply to that service if its profile is explicitly enabled.
+  Means running docker compose up will run only services which are part of default profile.
+  - To run only storefront related services
+    _**Command :- docker compose --profile storefront_Services up**_
+
+  <img width="781" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/b1ef5edf-6c37-4936-b1da-ce0a07cddebf">
+
+-----------------------
+Multiple Compose Files
+-----------------------
+- Having multiple compose file is valuable sometimes than to use tools like service profiles.
+- In staging and teesting env we might need two files as we will never have local and staging configurations running on same host machineat same time.
+- Developer at some time might want to run whole system at once.So having multiple files is not good use case.
+
+- By default compose will read two configuration files - docker-compose.yaml and docker-compose.override.yaml
+  Override file essentially inherits from main config file
+  Docker compose will merge two files together
+- Unlike primary file, override file doesnt need to be complete to be valid. It can contain snippets of configuration which are overridden.
+  One docker compose configuration can be easily shared between multiple projects or repositories.
+- It is also possible to have multiple overdide files in same repo. We can replace override file with filename we want.
+* We've 2 file local and staging as below with env varibale overrides.
+
+  <img width="775" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/e452ad3e-7301-4afa-b726-5d8c5ff4196a">
+
+To run configuration file overrides, use -f flag which stands for file.
+- To run all containers in local development overrides. First original yaml and then override.
+
+  **Command :-  docker-compose -f docker-compose.yaml -f docker-compose.local.yaml up**
+
+  <img width="781" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/ab55659e-b65f-4a0f-90ac-f7803feb1347">
+
+  Overriding a compose file makes it extremely easy to support different configuration variables in different environments.
+
+  
+-----------------------
+Environment Variables
+-----------------------
 
 
 
-       
-    
+
+
+- 
