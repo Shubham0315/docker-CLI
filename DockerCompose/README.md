@@ -228,8 +228,19 @@ To run configuration file overrides, use -f flag which stands for file.
 -----------------------
 Environment Variables
 -----------------------
+- If our docker compose configurations need to have different behaviours in different environments, but we dont want configuration overrides for every environment, we can use "Environment Variables"
+- Previously we discussed, passing environment variables into running docker containers. We can do same by passing env variables from host machine shell to composed configurations.
+- Env variables are most commonly used for tags, versions, ports to make our compose file flexible in any environment.
+- Syntax for accessing env variables is $env_variable
+
+<img width="290" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/c53d97b4-5964-4845-a2c4-7a0002d6125b">
 
 
+- If tag variable is not set in host environment, docker will default to an empty string
+  There are other ways to specify default :- In config inline, in external env file.
+- Simplest is inline syntax
+- If we have env file by different name or if its outside of project directory, we can pass file using --env-file flag.
+- Any env variable that is set in shell will always override a default value whether the default is set inline or in env file. 
 
 
 
