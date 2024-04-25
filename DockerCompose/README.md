@@ -103,7 +103,10 @@ We can replace environment with env_file and below taht include paths to any env
 We can create env_vars file which will provide environment variables required for mySql container to run.
 - Instead of naming each environment variable individually, compose also supports passing in file paths to an environment configuration
 
+  <img width="781" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/23f7e5e3-c889-4c6c-aa2d-4848904f9890">
+
   
+
 
 
        
