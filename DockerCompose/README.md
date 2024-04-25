@@ -63,5 +63,19 @@
 3. To stop and start the running containers :- docker-compose restart
 - This is super convenient for fixing random system errors
 
+--------------------
+Build Arguments
+------------------
+- Build arguments and environment variables make docker builds more flexible.
+- Environment variables in docker are visible from inside the running container. Build arguments are type of environment variable that are available to docker only at build time but not inside the container.
+- Build arguments are useful for things like specifying a version for certain build tool or cloud platform configuration.
+  If docker container is hosted in multiple regions, it becomes easy to switch between regions while using the same singular dockerfile.
+
+  <img width="778" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/48880747-1ed0-47f4-8e1c-b9c79d3ef7e4">
+
+- The most common use of environment variable is for specifying things like current runtime environment such as dev/test. This can be used for logging or enabling a feature flag.
+- Instead of naming each environment variable individually, compose also supports passing in file paths to an environment configuration
+
+
        
     
