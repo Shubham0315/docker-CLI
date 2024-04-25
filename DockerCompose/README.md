@@ -29,5 +29,39 @@
       (Not suited for distributed environments and has no tooling for running containers across multiple hosts.
       (Not ideal for traffic environments such as production)
 
-  Examples :- Our application has frontend(for selling) and scheduler(professional equipment installation). If our frontend has temporary increase in web traffic due to sale.
+  Examples :- Our application has storefront(for selling) and scheduler(professional equipment installation). If our frontend has temporary increase in web traffic due to sale.
               To scale up multiple instances of frontend we need to run docker compose configuration on multiple hosts which will also scale up scheduler at same time (which we dont need)
+
+
+  -----------------------
+  Docker Compose Handson
+  -----------------------
+  - Create configuration file (.yaml) inside application directory. (YAML :- Yet Another Markup Language, used for data serialization) (docker-compose.yaml)
+    1. First line of file will be version of docker compose
+    2. Services :- Used to specify all containers application needs to run
+       Our app storefront relies on mySql for database on backend. So under services, define our first service "storefront". Provide compose with instructions for creating storefront docker container. If we want to build image locally, inside storefront provide build and provide path to dockerfile.
+       Define second service named database (MySql already provides images from dockerhub to download, so no need to build images). Just provide image name as parameter and it will fetch image from dockerhub.
+   
+       <img width="781" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/b9442dcd-95f2-47fd-8259-d051f4f80c34">
+
+
+       _Note:- Here we can provide service name according to our convenience_
+
+**Docker commands**
+
+- Docker compose provides many commands for managimg lifecycle of docker services.
+- Most common are up, down, stop and restart. All commands start with "docker-compose"
+
+1. To start all services defined in yaml file :- docker-compose up
+- This will build docker images for each of the defined services, create containers and start them
+  If we've large software system with many services and we're working on only one piece of it, we may not want to start up every single service. We can pass the service name to docker compose command to start only that service.
+
+2. To stop the services running :- docker-compose down
+- This will delete all the running containers and will remove any artifacts created as part of docker-compose up.
+  In local development, docker-compose stop is useful for simply saving battery life and free up memory. Whereas docker-compose down is more aggressive and helpful if we've made changes to the running application
+
+3. To stop and start the running containers :- docker-compose restart
+- This is super convenient for fixing random system errors
+
+       
+    
