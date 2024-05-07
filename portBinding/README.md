@@ -33,7 +33,7 @@ Add -p to tell docker to bind ports.
 First number is the port on our host that we want to map : Number of port we're exposing within our container
 Outside of the container (machine) : Inside of the container
 
-_**Command :- docker run -d --name my-web-server my-web-server**_
+_**Command :- docker run -d --name my-web-server -p 5000:5001 my-web-server**_
 <img width="766" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/db6513e7-7740-4a1b-8016-c6d323401412">
 
 Now go to localhost:5001 which is localhost on our machine. The link will be accessible. Below is the output:-
