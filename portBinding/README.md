@@ -3,7 +3,7 @@ Accessing container network services from your host. Docker provides ability to 
 **Port Binding :- Allows docker to take port on your machine and map it to the port within the container**
 ------------------------------------------------------------------------------------------------------------------
 
-1. Create a Docker Image from Docker file
+1. Create a Docker Image from Docker file (Here we have given -f option as the dockerfile name is customized not default)
 
 _**Command :- docker build -t my-web-server -f web-server.Dockerfile .**_
 <img width="782" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/6650c78e-3234-406c-b438-520a5c5635b1">
