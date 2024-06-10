@@ -1,15 +1,31 @@
 **Dockerfile Contents**
 
-- FROM :- Tells docker which existing docker image to get your docker image from. This can be any image either from local or internet
+- FROM :- Tells docker which existing docker image to get your docker image from. This can be any image either from local or internet. Used to define base image for our container
+
+- RUN :- To execute commands while we build images
 
 - USER :- Tells docker which user to use for any dockerfile commands underneath it (By default docker uses "root" user)
 
-- COPY :- Copies files from directory provided to the docker build command to the container image. The directory provided to docker build is called the "Context". The context is usually your working directory
+- COPY :- Copies files from directory provided to the docker build command to the container image. The directory provided to docker build is called the "Context". The context is usually your working directory. To copy files from server to container.
+
+- WORKDIR :- To create directory for our container and its contents.
+
+- ADD :- To copy files from server to container and also download files from internet and send to container.
 
 - RUN :- Run statements are commands that customize our image. To install software or configuration files needed for your application.
 
-- ENTRYPOINT :- Tells docker what command containers created from this image should run
+- ENTRYPOINT/CMD :- Tells docker what command containers created from this image should run. To execute commands.
 
+- EXPOSE :- To publish ports for our application to run
+
+---------------------------------------------------------------------------------------------------------------------------
+Difference between CMD and ENTRYPOINT
+---------------------------------------------------------------------------------------------------------------------------
+
+- Entrypoint has high priority
+- Both are start commands
+- Entrypoint cannot be changed. Anyone cannot overwrite value in image. Main executables need to be passed in entrypoint they are unchanged throughout the runtime
+- In CMD, we can pass configurable parameters. Here we can pass port, IP (changeable parameters)
 ---------------------------------------------------------------------------------------------------------------------------
 Use dockerfile to Build Image and Run Container
 ---------------------------------------------------------------------------------------------------------------------------
