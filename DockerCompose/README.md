@@ -16,13 +16,13 @@
   - Docker compose is declarative. With compose, configuring a docker environment involves executing set of procedural steps in specific order.
     Each step relies on previous and have assumptions with it. There can be bugs if state of environment doesnt match with assumptions
     e.g:- If we build and run container. If we again try to execute same, it wont run as container is already in running state.
-  - Docker compose allow us to specify desired end result and will execute any steps to reach teh result automatically. Using compose, we can re-run the command again (above e.g)
+  - Docker compose allow us to specify desired end result and will execute any steps to reach the result automatically. Using compose, we can re-run the command again (above e.g)
  
   **Configuration as a Code Advantages**
   
     - Configuration files can be checked into version control. We can revert to previous versions if the configuration ever breaks.
     - Its also self documenting (No need to remember commands)
-    - Eay to manage multiple docker environments each with different configurations (Dev and QA). Each to have own configuration files
+    - Easy to manage multiple docker environments each with different configurations (Dev and QA). Each to have own configuration files
    
     _**Uses of Docker Compose**_
     - Well suited for local development and staging server or CI testing environment.
