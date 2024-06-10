@@ -7,7 +7,7 @@ Container Image Registry
 - Container images are tracked by their tags (string with image name and version)
 - Images with no version gets automatically tagged to version called _**Latest**_. This naming scheme makes easier to download specific versions of images.
 
-  _** Docker HUB**_
+  _**Docker HUB**_
   - Default registry used by docker client
   - Public registry that anyone can push images to.
   - Whenever our dockerfile needs images, it pulls images from Docker Hub from the FROM section
