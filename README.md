@@ -109,7 +109,7 @@ Debugging of Containers Slowness
 - Our container might run slowly than we expected
   We can use 3 command to analyse the same
 
-  1. Docker stats
+1. Docker stats
   - This gives us snap of our container's performance as its running.
   - Launch a container of name alpine. As we want our container to run indefinitely, set its entrypoint to sleep.
     After image name provide agrument as "infinity" that puts container to sleep forever
