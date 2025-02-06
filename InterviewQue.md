@@ -250,3 +250,38 @@ Explain dockerfile and its contents
   - Configuration settings
   - Env variables
   - Execution commands
+ 
+Dockerfile Directives (Commands)
+- FROM   :- Specifies base image                       FROM ubuntu:latest
+- LABEL  :- Adds metadata to image                     LABEL version="1.0"
+- WORKDIR:- Sets working directory                     WORKDIR /app
+- COPY   :- Copies files from host to container        COPY . /app
+- ADD    :- Similar to copy but can extract archives   ADD myfile.tar.gz /app/
+- RUN    :- Executes commands during image build       RUN apt update && apt install -y python3
+- ENV    :- Sets env variable                          ENV APP_ENV=production
+- EXPOSE :- Port which container listens on            EXPOSE 8080
+- CMD    :- DefauLt command to run inside container    CMD ["python3", "app.py"]
+- ENTRYPOINT :- Definesexecutable for container        ENTRYPOINT ["nginx", "-g", "daemon off;"]
+- VOLUME :- Creates consistent storage volume          VOLUME /data
+- ARG    :- Defines build time variable                ARG APP_VERSION=1.0
+- HEALTHCHECK :- Defines health check command
+
+
+![image](https://github.com/user-attachments/assets/6fb2ab7c-7107-42a8-b6b6-3e3f75a49b55)
+- Here build command will talk to daemon and -t will tag image id. Dot (.) will build the image in present dir. Also give tag as latest to image (**docker build -t ubuntu:latest .**)
+- To check image created or not :- **docker images** 
+
+Note :- We've to switch to root user before installing packages as we're not running command as superuser
+
+![image](https://github.com/user-attachments/assets/9961e31c-7cd9-429b-9086-03bc7f681316)
+- Here run command will execute the built image. -d for detached mode. --name ubuntu is name of container as per wish and then followed by image name. Provide tag (docker run -d ubuntu:latest)
+- To check container created :- **docker ps**
+
+![image](https://github.com/user-attachments/assets/4a1c32b1-aad7-4c04-a9cf-1f3464f85291)
+- To push image to dockerhub, login first and then push. shubham315 is dockerhub folder where we want to push our image
+- To login :- **docker login**
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
