@@ -62,4 +62,94 @@ Microservice Architecture
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Explain the concept of virtualization 
+-
+- It is process of creating multiple virtual instances of computing resources(like OS, storage, networks) on single physical machine. This allows better resource utilization, isolation and scalability
 
+- VMs and Hypervisor based Virtualization
+  - VM is fully functional virtual OS that runs on physical machine(host) using software layer called hypervisor.
+  - On physical machine hypervisor in installed and on top of it VM is created. To increase efficiency, we can install hypervisors on physical servers which create VMs for us where VMs are logically isolated.
+  - If we request for EC2, request goes to data center in that region and on one of the physival server using hypervisor VM gets created for us. Physically we dont buy VM but we pay money for it.
+  - Virtualization is used to create VM inside our machine. In those VM we can host guest OS. Using guest OS we can run multiple apps on same machine
+  - In below SS, physical server means host OS, VM means guest OS. Hypervisor is used to create VMs here.
+ 
+![image](https://github.com/user-attachments/assets/e0d4e870-e98e-4e99-bb4e-841786e4f59b)
+
+- **Functioning of VMs**
+  - Hypervisor sits between physical hardware and virtual instances
+  - Host OS is main PS on physical machine
+  - Each VM runs its own Guest OS, applications
+  - VMs are completely isolated from each other
+ 
+- **Advantages**
+  - Complete isoaltion as each VM has its own OS
+  - Strong isolation reduces security risks
+  - Ideal for running older apps that need full OS capabilities
+
+- **Disadvantages**
+  - Heavy resource consumption as each VM runs full OS consuming CPU, RAM and storage
+  - Booting VM takes time since it loads full OS
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain the concept of containerization
+-
+- It is used to pack the application along with its dependencies to run application.
+- Containerization is a lightweight virtualization technology that packages application and its dependencies into an isolated unit called container. These containers can run across diff env without need of separate OS for each app instance. Unlike VM which run full OS for each instance, containers share host kernel, meking them faster and efficient
+
+![image](https://github.com/user-attachments/assets/eedb39b0-67b5-42fc-bad1-5f901fdec88d)
+
+- It is similar to virtualization architecture, instead of hypervisor here we use docker engine using which we create containers. Inside containers we've apps
+- Docker engine is software that hosts container
+- Container is runtime of app which is created through docker image. Container is a VM just with no OS. With help of images, containers run
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+What is docker container?
+-
+- Container is nothing but a VM with no OS. It is runtime of app which is created using docker image
+- It is a lightweight, standalone and executable package that includes everything for an app to run like code, libraries, dependencies, env var, config files
+- Unlike VMs, containers share share host OS kernel but remain isolated, making them efficient and portable
+
+- **How Docker containers work?**
+  - Containers are created from images which serve as blueprints for containerized apps.
+  - Docker image is a static file containing app and its dependencies whereas container is instance of docker image
+ 
+- **Lifecycle of Docker container**
+  - Pull image from registry dockerhub (nginx,ununtu)
+  - Run the container means start it
+  - Execute commands to interact with running container
+  - Stop and remove container when done
+ 
+- **Features of Docker containers**
+  - Lightweight as uses shared OS kernel instead of running full OS per instance
+  - Start in milli seconds
+  - Portable as runs across local, testing and cloud env
+  - Containers run from immutable images ensuring consistency
+
+- **Use cases of Docker Containers**
+  - Microservices : each service runs in its own container
+  - CICD pipeline to automate test and deployment
+  - Multi cloud support
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain architecture of docker containers
+-
+- Containers can be created on top of VMs or on top of physical servers as well
+  1. Use servers and install OS, install docker on top of it for containerization and then create multiple containers
+  2. Create VM/EC2 on top of physical server, create docker on top of it(Mostly used) and start creating containers on top of it. While maintaining servers, there is maintenance overhead, as orgn not willing to maintain their own data centers
+ 
+- Docker follows client-server architecture that consists of multiple components working together to manage containers efficiently. It ensures lightweight, portable and scalable containerized apps.
+
+- **_Key components of Architecture_**
+  - **Docker Client** :- CLI or API to interact with docker engine. Runs commands like docker build/run/pull. Communicates with daemon
+  - **Docker Daemon** :- It is background service running on host system. Responsible to manage images, containers, networks, volumes. Listens to API requests from client. Creates and runs containers using container runtime
+  - **Docker Images** :- Readonly templeate to create containers. Contains code, lib, dependencies, configs.
+  - **Docker Containers** :- Running instances of docker image
+  - **Docker Registry** :- Central repo to store and distribute docker images
+ 
+- Here we can write dockerfile and submit to docker engine which converts file to container image
+- Docker is mostly dependent on docker engine which is single point of failure. If it stops, all containers stop working
+
+![image](https://github.com/user-attachments/assets/9f3c2695-9120-41ca-bf57-07f312090a7d)
