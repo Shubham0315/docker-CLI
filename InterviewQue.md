@@ -310,7 +310,7 @@ Difference between entrypoint and CMD in dockerfile
 - ENTRYPOINT defines main command. CMD provides default arguments for ENTRYPOINT
 
    e.g :-
-   - FROM ubuntu  
+   - <FROM ubuntu>  
    - ENTRYPOINT ["echo"]  
    - CMD ["Hello, World!"]
   
