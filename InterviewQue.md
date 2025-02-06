@@ -241,3 +241,12 @@ What is docker?
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Explain dockerfile and its contents
+-
+- Dockerfile is a script like text file containing set of instructions to build a docker image. It automates process of creating lightweight, portable and reproducible containers.
+- Dockerfile consist of multiple commands (directives) that define :-
+  - Base Image
+  - Application dependencies
+  - Configuration settings
+  - Env variables
+  - Execution commands
