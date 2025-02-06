@@ -291,8 +291,8 @@ Difference between entrypoint and CMD in dockerfile
 - Used to provide default arguments to container. Can be overridden when running  **_docker run <image> <command>_**
 - What CMD we write in dockerfile
 
-  FROM ubuntu
-  CMD ["echo", "Hello World"]
+  - FROM ubuntu
+  - CMD ["echo", "Hello World"]
   
 - We can override this CMD while running container image :- **_docker run image echo "Message"_**  (Override hello world in CMD)
 
@@ -301,17 +301,18 @@ Difference between entrypoint and CMD in dockerfile
 - Cannot be easily overridden using docker run <image> <command> unless using **_--entrypoint_**
 - What ENTRYPOINT we write in dockerfile
   
-  FROM ubuntu
-  ENTRYPOINT ["echo", "Hello"]
+  - FROM ubuntu
+  - ENTRYPOINT ["echo", "Hello"]
   
 - We can override this ENTRYPOINT while running container image :- **_docker run --entrypoint ls ubuntu_** (override echo hello by listing files in container)
 
 **Using ENTRYPOINT and CMD together**
 - ENTRYPOINT defines main command. CMD provides default arguments for ENTRYPOINT
 
-   e.g :-  FROM ubuntu  
-           ENTRYPOINT ["echo"]  
-           CMD ["Hello, World!"]
+   e.g :-
+   - FROM ubuntu  
+   - ENTRYPOINT ["echo"]  
+   - CMD ["Hello, World!"]
   
 - Here echo is fixed but while running container we can change CMD
 
