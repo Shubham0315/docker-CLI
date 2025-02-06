@@ -281,7 +281,34 @@ Note :- We've to switch to root user before installing packages as we're not run
 - To push image to dockerhub, login first and then push. shubham315 is dockerhub folder where we want to push our image
 - To login :- **docker login**
 
-
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Difference between entrypoint and CMD in dockerfile
+-
+- Both ENTRYPOINT and CMD define the command that runs when container starts, but they serve different purposes
 
+**CMD (Default Command)**
+- Used to provide default arguments to container. Can be overridden when running  **_docker run <image> <command>_**
+- What CMD we write in dockerfile
+  FROM ubuntu
+  CMD ["echo", "Hello World"]
+- We can override this CMD while running container image :- **_docker run image echo "Message"_**  (Override hello world in CMD)
+
+**ENTRYPOINT (Mandatory Command)**
+- Defines main executable of the container
+- Cannot be easily overridden using docker run <image> <command> unless using **_--entrypoint_**
+- What ENTRYPOINT we write in dockerfile
+  FROM ubuntu
+  ENTRYPOINT ["echo", "Hello"]
+- We can override this ENTRYPOINT while running container image :- **_docker run --entrypoint ls ubuntu_** (override echo hello by listing files in container)
+
+**Using ENTRYPOINT and CMD together**
+- ENTRYPOINT defines main command. CMD provides default arguments for ENTRYPOINT
+  e.g :-  FROM ubuntu  
+          ENTRYPOINT ["echo"]  
+          CMD ["Hello, World!"]
+- Here echo is fixed but while running container we can change CMD
+
+- Use ENTRYPOINT if your container must always run specific program (e.g:- python app.py)
+- Use CMD if you want default arguments but allow users to modify them
+- Use both together for flexibility, CMD for arguments and ENTRYPOINT for command
