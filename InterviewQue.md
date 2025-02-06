@@ -145,6 +145,7 @@ Explain architecture of docker containers
 - **_Key components of Architecture_**
   - **Docker Client** :- CLI or API to interact with docker engine. Runs commands like docker build/run/pull. Communicates with daemon
   - **Docker Daemon** :- It is background service running on host system. Responsible to manage images, containers, networks, volumes. Listens to API requests from client. Creates and runs containers using container runtime
+  - **Docker Desktop** :- It enables to build and share containerized apps and microservices. It includes daemon, client, compose,etc. We can download on our PC
   - **Docker Images** :- Readonly templeate to create containers. Contains code, lib, dependencies, configs.
   - **Docker Containers** :- Running instances of docker image
   - **Docker Registry** :- Central repo to store and distribute docker images
@@ -153,3 +154,90 @@ Explain architecture of docker containers
 - Docker is mostly dependent on docker engine which is single point of failure. If it stops, all containers stop working
 
 ![image](https://github.com/user-attachments/assets/9f3c2695-9120-41ca-bf57-07f312090a7d)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Difference between Containers and Virtual Machines
+-
+- Containerized apps just comprises of base OS and rest is indebted from host OS(kernel) making them lightweight. Containers are isolated and present as docker image. If containers are not running, they dont use resources from kernel, so we dont have to pay our cloud provider anyhow.
+- Containers take minimum system dependencies which're required to form logical isolation between containers of same docker/host OS. If they're not present, hacking between containers is easy and security is compromised
+
+- Virtual machines have guest(whole) OS making it heavy in nature. Thus we've to pay our cloud provider for the resources we use
+
+1. **Resource Utilization** :- Containers share host OS kernel, making them lighter and faster than VMs while VMs have full fledged OS and hypervisor, making them more resource intensive
+2. **Portability** :- Containers are designed to be portable and can run on any system with compatible host OS. VMs are less portable as they need a compatible hypervisor to run
+3. **Security** :- VMs provide higher level of security as each VM has its own OS and can be isolated from host and other VMs. Containers provide less isolation as they share the host OS thus having less security
+4. Management :- Managing containers is easier than VMs as containers are lightweight and fast-moving
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Why containers are lightweight?
+-
+- Containers are lightweight because they use a technology called containerization which allows them to share the host OS kernel and libraries instead of running separate OS for each app. Also they provide isolation for the application and its dependencies. This results in smaller footprint compared to traditional VMs as containers don't need to include full OS. Additionally docker containers are designed to be minimal, only including what is necessary for the aplication to run, further reducing their size.
+
+- Also VMs use hypervisor (VMware, VirtualBox) to manage virtual OS instances. While docker eliminates need of hypervisor, running directly on host OS which in turn reduces CPU, memory and storage overhead
+- In containers image sizes are smaller than VM disk images as only necessary dependencies are included. Compresses storage layers make image transfer faster
+
+- As containers dont need full OS, they start in milli secs, leading to fast deployment and easier portability
+
+- This makes them ideal for cloud-native applications, microservices, and DevOps workflows.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain files and folders in container base images
+-
+- When you pull docker base image(ubuntu/centos), it contains minimal set of files and directories necessary for OS to function inside the container. It follows Linux FHS
+
+- Common files and directories in Container base image
+  - **Root dir(/)** :- base of FHS
+  - **/bin** :- Stores essential system binaries such as ls, cp, ps
+  - **/etc** :- Contains system-wide configuration files
+  - **/lib** :- Stores shared libs required for apps, used by binary executables
+  - **/usr** :- User programs and binaries such as apps, libraries
+  - **/var** :- Stores log files, cached data and temporary files
+  - **/tmp** :- To store temp files at runtime. Auto cleared when container stops
+  - **/root** :- Home dir of root user
+  - **/proc** :- Process info. Virtual filesystem containing process-related info
+  - **/dev** :- Device files
+
+- **_How to explore files and folders in container?_**
+  - **Start new container** :- docker run -it --rm ubuntu bash
+  - **List root dir** :- ls /
+  - **View binaries installed** :- ls /bin
+  - **Check config files** :- cat /etc/os-release
+ 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Files and folders containers use from host OS
+-
+- **Host's file system** :- Docker containers can access host file system using bind mounts, which allow containers to read and write files in host file system
+- **Networking stack** :- Host's networking stack is used to provide network connectivity to container. Docker containers can be connected to host's network directly or thro virtual network
+- **System calls** :- Host's kernel handles system calls from container, which us how container accesses hosts's resources such as CPU, Memory
+- **Namespaces** :- Docker containers use Linux namespaces to create isolated env for container's processes. Namespaces provide isolation for resources such as file system, process ID and network
+- **Control groups** :- Dcoker containers use cgroups to limit and control resources such as CPU, memory, I/O, that container can access
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+What is docker?
+-
+- Docker is a containerization platform that provides easy way to containerize your applications, which means, using Docker you can build container images, run the images to create containers and also push these containers to container regestries such as DockerHub, Quay.io and so on.
+- In simple words, you can understand as containerization is a concept or technology and Docker Implements Containerization
+
+**Docker Architecture**
+- Using docker client we(users) run some docker commands(through CLI) which are received by docker daemon
+- Daemon is a process that we install. Heart of docker
+- After receiving commands, daemon executes them and creates images/containers (build will create images, run will create containers)
+- Using daemon, we push images to registry
+- If docker daemon goes down, docker will stop functioning, containers will stop working
+
+- As user, we've to write docker file (set of instructions)
+  - After writing file, we submit it to docker daemon using CLI using docker build command which creates --> docker image(snapshot in VM). Once docker image is run using "docker run" command and it creates docker container  --> which is final output comprises of system libraries, application dependencies and application itself
+ 
+  - Dockerfile - build dockerfile to create docker image - run image to create docker container
+
+**docker build** -> builds docker images from Dockerfile
+**docker run** -> runs container from docker images
+**docker push** -> push the container image to public/private registries to share the docker images.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
