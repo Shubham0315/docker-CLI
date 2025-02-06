@@ -57,5 +57,9 @@ Microservice Architecture
 - When to choose which one?
   - Choose monolithic if :- app is mid sized, when quick development and deployment is needed
   - Choose MS if :- app needs to scale frequently, we have multiple teams working on diff modules, need high availability, diff modules require diff tech stacks
+ 
+![image](https://github.com/user-attachments/assets/99a4f133-fc88-434d-ac70-f665ffec5804)
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
