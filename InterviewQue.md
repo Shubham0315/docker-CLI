@@ -319,3 +319,25 @@ Difference between entrypoint and CMD in dockerfile
 - Use ENTRYPOINT if your container must always run specific program (e.g:- python app.py)
 - Use CMD if you want default arguments but allow users to modify them
 - Use both together for flexibility, CMD for arguments and ENTRYPOINT for command
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain the concept of multi stage docker build
+-
+- Multi stage docker builds help to reduce the final image size, improve security and optimize performance by using multiple stages in single dockerfile. Each stage is built separately and only necessary artifacts are copied to the final image.
+- A dockerfile is divided into multiple stages. Each stage has its own FROM statement allowing to use different base images. Intermediate artifacts are copied to final stage
+
+- To write an app in python we only require python runtime. But if we write normal dockerfile, it comes up with other things like ubuntu base image, system dependencies and apt packages. So it results in lot of overload on simple docker image which we want in output
+- To run the container here we require python runtime only and to build app we require other things such as base image and all
+- We use UBUNTU as base image as it is easy to install packages, get dependencies required to build the app. In stage 2 no base image is copied only required binaries are copied.
+
+- Multi stage build splits our dockerfile into multiple parts. It remains a single dockerfile but with multiple stages.
+
+- Here in the first stage we dont define CMD or ENTRYPOINT. We can use RUN to execute any commands during the application build. It copies the source code and compiles it to binary. Then the built app's binary is taken as input in stage 2 which was built previously. In stage 2 we use CMD to run our app. In 2nd stage we can use lightweight image of the required app
+
+- In below SS, we only need alpine to run. So in stage 1 to build image we can use golang image and RUN it to build our app's binary. This binary is taken to stage 2 as input and run the app using CMD.
+- This will eventually reduce image size.
+
+![image](https://github.com/user-attachments/assets/c43ed791-e265-40f3-a526-0e050868ae41)
+
+- In multi stage dockerfile, always choose very rich base image with lot of dependencies. Afterall base image will be removed in final stage. In final stage we can execute dependencies as CMD. So that in final stage we can have minimalistic image.
