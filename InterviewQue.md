@@ -453,3 +453,9 @@ Explain docker networking
   - Enables external access to containerized apps
   - Supports secure isolation of containerized services
   - Facilitates multi-host networking in distributed apps
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain the types of docker networks
+-
+- 
