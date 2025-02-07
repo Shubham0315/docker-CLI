@@ -400,6 +400,24 @@ Command :-  **docker run -d -v my_data:/container/path --name my_container**    
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Difference between -v and --mount in docker volume
+-
+- Both -v and --mount are used to attach storage (volumes or bind mounts) to docker containers, but they've different syntax and flexibility.
+
+**_-v (volume flag- short form)_**
+- Supports Bind mount and volumes both but its less readable
+- Volume with -v :- **docker run -d -v my_data:/app/data nginx**           # Creates volume my_data and mounts it inside directory /app/data with container named nginx 
+- Bind mount with -v :- **docker run -d -v /hostPath:/ContainerPath nginx**    # Directly maps host directory /hostPath into container  (Outside of container to inside of container)
+- -v is less explicit (harder to read)
+
+**_--mount (Mount flag - Newer, more readable)_**
+- More powerful as it supports read only, multiple options
+- Volume with --mount :- **docker run -d --mount type=volume,source=my_data,target=/app/data nginx**    #Here we define what type is (volume), source and target . Rest same as -v
+- Bind mount with --mount :- **docker run -d --mount type=bind,source=/hostPath,target=/ContainerPath,readonly nginx** #more control to make it read only
+
+Note :- Use --mount for better readability and advanced options, -v for quick, simple volume bindings in development
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Explain commands related to docker volumes
 -
 - 
