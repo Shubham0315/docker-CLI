@@ -420,4 +420,36 @@ Note :- Use --mount for better readability and advanced options, -v for quick, s
 
 Explain commands related to docker volumes
 -
-- 
+- Docker volumes is a recommended way to persist data in containers.
+
+- Create Docker volumes :- **docker volume create my_volume**
+- List and Inspect volumes :- **docker volume ls   &&   docker volume inspect my_volume **          #Show detail info like mount path, size, driver
+- Using volumes in containers
+  - Mount volume to container :- **docker run -d -v my_volume:/app_data --name container nginx**    #Mounts my_volume inside container at /app/data
+  - Use -- mount              :- **docker run -d --mount type=volume,source=my_volume,target=/app/data nginx**
+
+- Removing docker volumes :- **docker volume rm my_volume**
+- To remove all unused volumes :- **docker system prune**
+- Remove volume with containers
+  - Remove container and its volume :- **docker rm -v my_container**                    #deletes container and attached volumes
+  - Remove all unused containers, images and volumes :- **docker system prune -a**      #cleans up every unused containers, images, volumes
+  - Check mounted volumes in running container :- **docker inspect my_container**       #shows mounted volumes under mounts section
+ 
+Note :- To delete volume, first delete the container and then volume. To delete container, stop it and then delete
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain docker networking 
+-
+- Networking allows docker containers to communicate with each other and  with the host on which they run
+- Lets say we've host on top of which docker is installed . There're 2 containers on top of it.
+  - Both containers are 2 individual parts of our application (frontend and backend)
+  - Here both of these containers must talk to each other. So there has to be a networking way how one container can talk to other. Also, container should talk to host as host has complete OS.
+  - Also both containers should've good isolation. All this is offered by "**_Docker/Container networking_**"
+ 
+- In short, docker networking enables communication between containers, host system and external networks. It provides different network drivers to handle different connectivity needs.
+
+- Docker is important as :-
+  - Allows containers to communicate with each other
+  - Enables external access to containerized apps
+  - Supports secure isolation of containerized services
+  - Facilitates multi-host networking in distributed apps
