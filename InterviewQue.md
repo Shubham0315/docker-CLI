@@ -423,19 +423,33 @@ Explain commands related to docker volumes
 - Docker volumes is a recommended way to persist data in containers.
 
 - Create Docker volumes :- **docker volume create my_volume**
+
+![image](https://github.com/user-attachments/assets/2a5a4254-d0c7-4a77-90e7-50902aa809fb)
+
 - List and Inspect volumes :- **docker volume ls   &&   docker volume inspect my_volume **          #Show detail info like mount path, size, driver
+
+![image](https://github.com/user-attachments/assets/cb2371be-1bc7-4118-aaa5-be1a84326c61)
+
 - Using volumes in containers
   - Mount volume to container :- **docker run -d -v my_volume:/app_data --name container nginx**    #Mounts my_volume inside container at /app/data
   - Use -- mount              :- **docker run -d --mount type=volume,source=my_volume,target=/app/data nginx**
+ 
+  ![image](https://github.com/user-attachments/assets/6e3cd99f-c314-4365-8212-917aaa6dab7b)
 
 - Removing docker volumes :- **docker volume rm my_volume**
 - To remove all unused volumes :- **docker system prune**
+
+![image](https://github.com/user-attachments/assets/20d07a40-f43a-4d4f-95b6-0d6963d3438f)
+
 - Remove volume with containers
   - Remove container and its volume :- **docker rm -v my_container**                    #deletes container and attached volumes
   - Remove all unused containers, images and volumes :- **docker system prune -a**      #cleans up every unused containers, images, volumes
   - Check mounted volumes in running container :- **docker inspect my_container**       #shows mounted volumes under mounts section
  
 Note :- To delete volume, first delete the container and then volume. To delete container, stop it and then delete
+
+![image](https://github.com/user-attachments/assets/4c211b21-00b8-4f03-982a-1217dfd31666)
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Explain docker networking 
