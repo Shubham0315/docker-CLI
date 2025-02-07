@@ -341,3 +341,65 @@ Explain the concept of multi stage docker build
 ![image](https://github.com/user-attachments/assets/c43ed791-e265-40f3-a526-0e050868ae41)
 
 - In multi stage dockerfile, always choose very rich base image with lot of dependencies. Afterall base image will be removed in final stage. In final stage we can execute dependencies as CMD. So that in final stage we can have minimalistic image.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain distorless images
+-
+- Distorless images are minimal, lightweight container images that do not include traditional linux distribution(like ubuntu or alpine). Instead they only contain the app and its necessary runtime dependencies, reducing attack surface, improving security and performance
+
+- Why to use Distorless Images?
+  - Smaller image size :- No unnecessary packages, reducing storage and network transfer costs
+  - Better security reducing vulnerabilities
+  - Faster startup :- Minimal dependencies improving performance
+
+- Just like multi-stage docker builds, it compiles code to binary and using binary also includes runtime libraries without extra OS packages
+
+- Here security is the highest
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain docker bind mounts and volumes
+-
+- Major problem with container is there is no filesystem by default.
+- Suppose we've nginx app inside our container which continuously puts user info, IP address of user into log file which is used for auditing.
+- Now if container goes donw, log file gets deleted as containers are ephemeral (shortlived) in nature as they dont have file system by default. Containers use CPU, memory like resources from kernel/host OSwhich makes them lightweight.
+
+Here arise 3 problems:-
+
+- If container goes down, it free up resources of OS abd gets killed. So our log file gets deleted. So we dont know who authorized container. Organization've to compromise on details
+- If we've 2 containers frntend and backend. Backend keeps writing file which is to be read by frontend to display content. If backend goes down and we dont have any file storage, entire info is gone. Frontend cant access prior records as well.
+- Lets say there is an app on container which reads file from cronjob on host. So there is file on host OS which container wants to read and display user. Here app doesnt know how to read infor from file on host OS
+
+- To overcome all these problems :- Bind Mounts and Volumes
+
+Bind Mounts 
+-
+- Used to directly map host directory to container. Bind folder on container with folder on host. So that any file on container will be accessed by host. It provides full access to host files but is tightly coupled to host filesystem.
+- Lets say we've /app folder on host. Even if our container goes down, /app is already there on host. So any file inside /app will be directly read by container.
+- If any new container comes up, we'll bind it to same /app on host so that information is not lost. This acts as backup for our container
+
+- Container accesses and modifies files on host like whatever changes done on container will auto reflect on host
+
+Command :- **docker run -d -v /hostPath:/ContainerPath --name Container**
+
+- **Use cases**
+  - Sharing files between host and container
+  - Giving access to specific files (logs,datasets)
+  - Development env where live file changes should reflect inside container
+ 
+Docker Volumes
+-
+- Provides same solution as bind mounts but with better lifecycle.
+- Docker volume is a managed storage solution that docker controls. It is not directly tied to the host filesystem and is better suited for persistent data.
+- Using docker CLI we create volumes i.e logical partition created on host.
+- While creating we dont provide directory details like bind mounts (/app), we say create volume on host which can be mounted to container
+- As volumes have lifecycle, using them we can manage containers using commands. Volumes're easy to share from one container to another
+
+Command :-  **docker run -d -v my_data:/container/path --name my_container**     #mydata is docker managed volume, container path is path where volume is mounted inside container
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain commands related to docker volumes
+-
+- 
