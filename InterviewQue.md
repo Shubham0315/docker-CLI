@@ -472,4 +472,88 @@ Explain docker networking
 
 Explain the types of docker networks
 -
-- 
+
+- **Bridge Networking**
+  - It is the default networking mode in docker.
+  - Containers on same host communicates with each other in an isolated network
+  - If we've one cobtainer mounted on host OS. When we try to ping the container from host, we get networking error as both have etho network of different ip ranges means subnet is different
+  - To solve this, docker creates virthual ethernet (Veth/docker0) so as to talk to host. This is called as Bridge Networking
+  - Veth acts as bridge between container and host
+ 
+  - In short bridge network is used if container and host both have different subnets. So both can talk to each other using bridge called "Virtual Ethernet"
+ 
+  - Containers connected to same bridge network can communicate using container names. While containers on different bridge networks need port mapping
+ 
+![image](https://github.com/user-attachments/assets/8710d24f-84c9-47b4-9a03-899d17bbe26b)
+
+  - Commands :- **docker network create my bridge**   &&    **docker network connect my_bridge container1**
+
+![image](https://github.com/user-attachments/assets/47fb2811-4926-4fa7-9c32-a4e0787e0575)
+
+
+- **Host Networking**
+  - Removes network isolation and binds container directly to host network
+  - Whenever we create container, docker directly binds container with IP address of host. Here container shares host's network namespace
+ 
+  - Commands :- **docker run --network=host nginx**
+
+![image](https://github.com/user-attachments/assets/e96318d5-ced2-4c47-8859-da12b8743c7d)
+
+  - Here host and container both're in same CIDR/Subnet due to shared network. So if we try to ping host from container, it is possible.
+ 
+  - Here the only issue is if user has access to host, he can directly access app inside container. So very insecure.
+ 
+- **Overlay Networking**
+  - Enables multi host networking for docker swarm services. Useful in docker swarm and K8S and when we've multiple hosts.
+  - If on multiple hosts we've to create cluster, ovrlay networking is useful as it is common across multiple hosts.
+ 
+  - Command :- **docker network create --driver overlay my_overlay**    &&    **docker service create --network=my_overlay nginx**
+ 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain docker networking commands and networking lifecycle
+-
+- Docker provides set of networking commands to manage container networks effectively.
+
+- **_Create Network_**
+  - While Creating custom network, we can specify type (bridge, overlay, macvlan)
+  - Commands :- **docker network create --driver bridge shubham**             #--driver specifies network type, shubham is name of custom network
+  - To check available networks :- **docker network ls**
+  - docker network create --driver overlay my_overlay_network
+
+![image](https://github.com/user-attachments/assets/7cdd9ea2-cf26-455e-8f3e-8754cadcd731)
+
+- **_Connect container to network_**
+  - Once network is created, containers need to be connected to it
+  - Command :- **docker network connect shubham nginx**                           #shubham is network name, nginx is container to be connected to network
+ 
+![image](https://github.com/user-attachments/assets/c57f4f71-2467-47fc-88d1-ab49a2c244a0)
+
+- **_Inspect network details_**
+  - To get detailed info about network (IR range, connected containers)
+  - Commands:- **docker network inspect shubham**
+  - Displays JSON formatted details of network, including assigned IPs
+
+- **_Disconnect container from network_**
+  - Commands :- docker network disconnect shubham nginx
+
+![image](https://github.com/user-attachments/assets/b87a5cd1-6fb8-41c2-a8d9-852742a3ca7b)
+
+- **_Remove a Network_**
+  - Unused networks should be removed to avoid clutter. The command will fail if any container is connected to the network
+  - Commands :- **docker network rm shubham**
+
+![image](https://github.com/user-attachments/assets/147656e5-5d70-4f02-b61a-0a3be8497b1c)
+
+- **Running a container with specific network**
+  - When launching a new container, you can specify which network it should use. Here network should be created already.
+  - Commands :- **docker run --network-shubham -d nginx**
+
+![image](https://github.com/user-attachments/assets/b8cfed21-6495-4316-baab-ddfa35334db7)
+
+- **Use host networking**
+  - To run container using host network
+  - Commands :- **docker run --network=host -d nginx**
+  
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
