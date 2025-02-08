@@ -110,6 +110,7 @@ What is docker container?
 - Container is nothing but a VM with no OS. It is runtime of app which is created using docker image
 - It is a lightweight, standalone and executable package that includes everything for an app to run like code, libraries, dependencies, env var, config files
 - Unlike VMs, containers share share host OS kernel but remain isolated, making them efficient and portable
+- Containers are virtualises OS configured with just enough resources to run your app.
 
 - **How Docker containers work?**
   - Containers are created from images which serve as blueprints for containerized apps.
@@ -214,7 +215,7 @@ Files and folders containers use from host OS
 - **Networking stack** :- Host's networking stack is used to provide network connectivity to container. Docker containers can be connected to host's network directly or thro virtual network
 - **System calls** :- Host's kernel handles system calls from container, which us how container accesses hosts's resources such as CPU, Memory
 - **Namespaces** :- Docker containers use Linux namespaces to create isolated env for container's processes. Namespaces provide isolation for resources such as file system, process ID and network
-- **Control groups** :- Dcoker containers use cgroups to limit and control resources such as CPU, memory, I/O, that container can access
+- **Control groups** :- Dcoker containers use cgroups to limit and control resources such as CPU, memory, I/O, that container can access. Used to monitor and limit CPU usage, network, disk bandwidth and memory consumption. CGroups prevents larger containers from taking all system resources and slowing down the system/other containers.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -222,6 +223,7 @@ What is docker?
 -
 - Docker is a containerization platform that provides easy way to containerize your applications, which means, using Docker you can build container images, run the images to create containers and also push these containers to container regestries such as DockerHub, Quay.io and so on.
 - In simple words, you can understand as containerization is a concept or technology and Docker Implements Containerization
+- Allows developers to package their apps into images that run on containers (Images are like apps and containers are like servers)
 
 **Docker Architecture**
 - Using docker client we(users) run some docker commands(through CLI) which are received by docker daemon
@@ -556,4 +558,6 @@ Explain docker networking commands and networking lifecycle
   - Commands :- **docker run --network=host -d nginx**
   
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
