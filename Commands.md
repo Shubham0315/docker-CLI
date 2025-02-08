@@ -12,5 +12,39 @@ What is docker CLI?
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
+How to create docker containers? Explain both long and short way.
+-
+
+_**Long Way (Docker create + docker start)**_
+- This methos separated container creation from container startup
+- As we know containers are created from images, which're compressed and pre-packaged file system that contain our application along with its env and config instructions to start our app which are ENTRYPOINT
+- If we dont mention our image i.e dockerfile or its not available on local, docker tries to retrieve it from dockerhub while creating the container
+ 
+- To create container :- **docker container create bash:latest**          #from dockerhub it will fetch bash image
+- Now this create container will have ID associated with it which we can check using :- **docker ps / docker ps -all**
+ 
+![image](https://github.com/user-attachments/assets/dfe9704c-467e-403f-8f3b-111f1b271bc7)
+
+- As we know, this command will only create containers but wont start it. Thats why **docker ps -a** states containers which are stopped as well.
+
+- To start this create container :- **docker container start $ID**
+
+![image](https://github.com/user-attachments/assets/33529365-096c-4848-acce-986c7382713b)
+
+- If the exit status is 0, means entrypoint is executed successfully
+
+- To check logs of the container :- **docker logs $ID**
+- Another way to see logs immediately after starting container :- **docker container start --attach ID**       #attach terminal to it
+
+**_Short Way_**
+- It is really inconvenient to create and start containers explicitly everytime we run our app.
+- So to merge all these :- docker run bash:latest      #creates container from image, starts it and attach terminal
+- Here **docker run = docker create + docker start + attach**
+
+![image](https://github.com/user-attachments/assets/a4c184f4-57ab-4f8e-b801-36bc3fe1bb91)
+![image](https://github.com/user-attachments/assets/1f0bc213-be07-438c-998f-8067b9d1d4f0)
+![image](https://github.com/user-attachments/assets/c709265b-532e-49b3-9217-18b624747400)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
