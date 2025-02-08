@@ -65,3 +65,74 @@ Explain creation of containers from docker files
 
 ![image](https://github.com/user-attachments/assets/fbfa4bf9-f638-4e5d-88e2-f730d6ee70bf)
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+How to interact with container? What are different commands?
+-
+- Once docker container is running, you can interact with it using various commands
+
+To forcefully stop container :-
+- 
+![image](https://github.com/user-attachments/assets/b2448e97-ae65-4c3e-b4bc-3e696ecb8b06)
+
+Attach to a running container
+- You can attach your terminal to a running container to see logs and interact with it. It connects your terminal to container's std input/output
+- Command :- **docker attach container**
+
+Execute commands inside running container
+- If you need to run commands inside running container
+- Command :- **docker exec -it ID $command**             #for alreadt conning container 
+- Command :- **docker run -it ubuntu**                   #for new container, directly open interactive mode
+
+![image](https://github.com/user-attachments/assets/89457941-bc55-4e21-a500-6ed53b13f91a)
+
+To open interactive shell
+- Command :- **docker exec -it containerID sh**
+
+View logs of container
+- Command :- **docker logs -f containerID**
+
+Inspect running container
+- Command :- **docker inspect containerID**
+
+![image](https://github.com/user-attachments/assets/aa8b8fa2-37fc-493f-b1e2-0e7b09390343)
+
+Check resource usage of container
+- Command :- **docker start container ID**
+
+![image](https://github.com/user-attachments/assets/77742d3a-248b-4e0d-b4af-40a5089b1af6)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Stopping and removing of container
+- 
+
+docker ps -a :- to get list of running, stopped, paused containers. We can remove containers not in use which can slow down system
+
+docker stop containerID :- to stop container
+
+- Stop,kill and Restart container
+  - docker stop containerID
+  - docker restart containerID
+  - docker kill containerID
+
+- Remove stopped container
+  - docker rm containerID
+  - docker container prune (remove all stopped containers)
+ 
+- To remove entire list of containers
+  - docker ps -aq :- to show container IDs
+  - docker ps -aq | xargs docker rm :- to remove all
+
+- To remove images
+  - docker rmi imageName
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain binding ports to container with commands
+-
+- Port binding in docker allows external access to services running inside container. By default contianers dont expose their internal ports to host system. You must explicitly map ports using -p or --publish option
+
+- Port binding allows docker to take port on your machine and map it to port within container
+
+- Command :- docker run -d -p 5001:5000 centos
