@@ -47,4 +47,21 @@ _**Long Way (Docker create + docker start)**_
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
+Explain creation of containers from docker files
+-
+- Dockerfile is a script that automates process of building docker images. Once image is built, we can create and run containers from it.
+- First we write our dockerfile with all the instructions to define image
+
+![image](https://github.com/user-attachments/assets/a5da3285-db19-4323-bf39-4638733283f8)
+
+- To build image from dockerfile :- docker build -t image_name .      #image_name can be custom , -t is for attaching tags, . uses pwd as build context but pwd should contain dockerfile
+
+![image](https://github.com/user-attachments/assets/bcb7f6cf-9d42-43eb-87ce-768cd77138d1)
+
+- Docker images are layers of images just compressed together. Thus docker creates images for every command mentioned in dockerfile called "Imtermediate Images"
+- After reading dokcerfile, it squashes all images together into single image
+
+- To run container from image :- docker run image_name
+
+![image](https://github.com/user-attachments/assets/fbfa4bf9-f638-4e5d-88e2-f730d6ee70bf)
 
