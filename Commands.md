@@ -189,3 +189,15 @@ Explain commands for managing containers
 
 ![image](https://github.com/user-attachments/assets/b43d2908-4a29-43c8-b53f-905147dde7d0)
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain dockerhub and commands
+- 
+- Dockerhub is container image registry, place for storing and tracing container images. It is default registry used by docker client.
+- Container images are tracked by tags
+
+- To login dockerhub account :- **docker login**
+- To tag image to be pushed :- **docker tag image shubham315/image:0.1**
+- To push image to dockerhub :- **docker push shubham315/image:0.1**
+
+![image](https://github.com/user-attachments/assets/6c2a3a61-8d55-490d-90bb-1b7b879a2e0e)
