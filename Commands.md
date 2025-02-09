@@ -135,4 +135,57 @@ Explain binding ports to container with commands
 
 - Port binding allows docker to take port on your machine and map it to port within container
 
-- Command :- docker run -d -p 5001:5000 centos
+- Command :- **docker run -d -p 5001:5000 centos**
+
+- To map port to container directly taking image from dockerhub and check what port is mapped:-
+
+![image](https://github.com/user-attachments/assets/38046f63-35ef-4570-ad2b-003d0e661f94)
+![image](https://github.com/user-attachments/assets/c02f2e6c-db2d-4dcb-9ea5-640f035c9eff)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+How to save data from containers?
+-
+- Containers are meant to be disposable. When they are deleted, all data is deleted
+
+- Here we can use "docker run --rm" to create and immediately remove simple ubuntu container. Use "--entrypoint.sh" to tell docker that we want to run shell command. Provide name of image as "ubuntu". At the end of commands, send text to a file called /tmp/file with echo command and print it with cat command
+
+- Command :- **docker run --rm --entrypoint sh ubuntu -c "echo 'Hello Shubham' > /tmp/file && cat /tmp/file"**
+
+![image](https://github.com/user-attachments/assets/e532f294-44a4-421a-b99d-0258b5a6284d)
+
+- But when we try to print file on console, we get error as everything created within container, stays within container. Once container gets deleted, data also gets deleted.
+- This is very inconvenient for containers that need to save stuff after exiting.
+
+![image](https://github.com/user-attachments/assets/44c9978a-447b-47a1-9be5-a58887b682fa)
+
+
+- Here we can use volume mounting  feature of docker.
+- Volume mounting allows docker to map folder on your computer to folder on container. Can be done with -v or --volume(outside:inside)
+
+- ![image](https://github.com/user-attachments/assets/4514a72b-94e1-4da9-8d89-1a6e407d8487)
+
+- If we provide file which is not there, docker creates directory of that name and mounts it as directory befor eit ran command
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain commands for managing containers
+-
+- When we stop any container, it is available to start again. STOP means just PAUSE
+
+- To check list of containers :- **docker ps -a**       # -a for exited, running all the containers
+- To remove container :- **docker rm containerID/Name**
+- To get only IDs of containers :- **docker ps -q**
+
+![image](https://github.com/user-attachments/assets/fc8077d8-4c14-479a-9873-ed8a7d9dff87)
+
+- To remove all containers :- **docker rm $(docker ps -aq)**      #all containers must be stopped
+- To forcefully remove container :- **docker rm -f $ID**
+
+![image](https://github.com/user-attachments/assets/efb55b04-308a-406b-9e92-7efc2184f48b)
+
+- To provide custom name to container we're creating :- **docker run --name $name -d -p -it 8080:80 nginx:latest**
+
+![image](https://github.com/user-attachments/assets/b43d2908-4a29-43c8-b53f-905147dde7d0)
+
