@@ -13,7 +13,7 @@ Monolithic Architecture
   - Single app handles all business functionalities
   - Shared database across all functionalities
   - Single deployment unit
-  - Follows 3-tier architecture : UI, Business Logic and Database
+  - Follows 3-tier architecture : UI (Frontend), Business Logic (Backend) and Database
 
 - **Advantages**
   - Simpler development, testing and debug as everything is at one place
