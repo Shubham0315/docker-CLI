@@ -233,13 +233,16 @@ What is docker?
 - If docker daemon goes down, docker will stop functioning, containers will stop working
 
 - As user, we've to write docker file (set of instructions)
-  - After writing file, we submit it to docker daemon using CLI using docker build command which creates --> docker image(snapshot in VM). Once docker image is run using "docker run" command and it creates docker container  --> which is final output comprises of system libraries, application dependencies and application itself
+  - After writing file, we submit it to docker daemon using CLI using docker build command which creates "docker image"(snapshot in VM).
+  - Once docker image is run using "docker run" command and it creates docker container, which is final output comprises of system libraries, application dependencies and application itself
  
   - Dockerfile - build dockerfile to create docker image - run image to create docker container
 
-**docker build** -> builds docker images from Dockerfile
-**docker run** -> runs container from docker images
-**docker push** -> push the container image to public/private registries to share the docker images.
+**docker build** :- builds docker images from Dockerfile
+
+**docker run** :- runs container from docker images
+
+**docker push** :- push the container image to public/private registries to share the docker images.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
