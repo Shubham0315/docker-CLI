@@ -342,6 +342,7 @@ Explain the concept of multi stage docker build
 
 - In below SS, we only need alpine to run. So in stage 1 to build image we can use golang image and RUN it to build our app's binary. This binary is taken to stage 2 as input and run the app using CMD.
 - This will eventually reduce image size.
+- AS Builder is used to copy artifacts to next stage (used for reference in next stage)
 
 ![image](https://github.com/user-attachments/assets/c43ed791-e265-40f3-a526-0e050868ae41)
 
