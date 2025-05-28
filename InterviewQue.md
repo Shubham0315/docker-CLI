@@ -110,7 +110,7 @@ What is docker container?
 - Container is nothing but a VM with no OS. It is runtime of app which is created using docker image
 - It is a lightweight, standalone and executable package that includes everything for an app to run like code, libraries, dependencies, env var, config files
 - Unlike VMs, containers share share host OS kernel but remain isolated, making them efficient and portable
-- Containers are virtualises OS configured with just enough resources to run your app.
+- Containers are virtualised OS configured with just enough resources to run your app.
 
 - **How Docker containers work?**
   - Containers are created from images which serve as blueprints for containerized apps.
