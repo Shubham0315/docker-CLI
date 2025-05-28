@@ -5,7 +5,7 @@ Write difference between Monolithic and Microservice architecture
 Monolithic Architecture
 -
 - It is a traditional approach where an entire application is built as a single, unified codebase. All components are tightly integrated and deployed as single unit
-- For all the services of an application uf we use one server and one database, it is monolithic
+- For all the services of an application if we use one server and one database, it is monolithic
 
 - **Key Characteristics**
   - Single codebase and repo
