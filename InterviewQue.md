@@ -69,7 +69,7 @@ Explain the concept of virtualization
 - VMs and Hypervisor based Virtualization
   - VM is fully functional virtual OS that runs on physical machine(host) using software layer called hypervisor.
   - On physical machine hypervisor in installed and on top of it VM is created. To increase efficiency, we can install hypervisors on physical servers which create VMs for us where VMs are logically isolated.
-  - If we request for EC2, request goes to data center in that region and on one of the physival server using hypervisor VM gets created for us. Physically we dont buy VM but we pay money for it.
+  - If we request for EC2, request goes to data center in that region and on one of the physical server using hypervisor VM gets created for us. Physically we dont buy VM but we pay money for it.
   - Virtualization is used to create VM inside our machine. In those VM we can host guest OS. Using guest OS we can run multiple apps on same machine
   - In below SS, physical server means host OS, VM means guest OS. Hypervisor is used to create VMs here.
  
