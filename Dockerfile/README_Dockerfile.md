@@ -36,7 +36,7 @@ Command :- docker build -t my-first-image .
 Execute above command going into the context/directory of our docker file for this image
 <img width="785" alt="image" src="https://github.com/Shubham0315/docker-CLI/assets/105341138/bba56aee-ded4-4675-a119-6ac13d1b8f84">
 
-In above scnap, we can see after every step image ID is generated. These are intermediate images. After each command in dockerfile is executed, image ID is generated. 
+In above snap, we can see after every step image ID is generated. These are intermediate images. After each command in dockerfile is executed, image ID is generated. 
 This is because, docker images are layers of images compressed together. So docker creates image for every command in our dockerfile.
 When docker finishes reading dockerfile, it squeezes all images together into a single image.
 
